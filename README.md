@@ -150,4 +150,3 @@ El routing permite navegar entre los dos formularios:
 - **Formulario Template-driven:** Usa `ngModel` y se define en la plantilla.
 - **Formulario Reactivo:** Usa `FormGroup` y validaciones en TypeScript.
 
-¿Te gustaría que te explique alguna parte con más detalle o ver el flujo de datos en algún formulario?
