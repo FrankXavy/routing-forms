@@ -57,3 +57,97 @@ Angular CLI does not come with an end-to-end testing framework by default. You c
 ## Additional Resources
 
 For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+
+----------------------
+Claro, aquí tienes una explicación de la estructura y funcionamiento del código de tu proyecto Angular, incluyendo cómo se implementó el routing, los formularios template-driven y los formularios reactivos.
+
+---
+
+## Estructura del Proyecto
+
+El proyecto está organizado así:
+
+- **src/app/**
+  - **app.component.ts / .html / .css**: Componente raíz, contiene la navegación y el outlet de rutas.
+  - **app-routing.module.ts**: Configuración de rutas usando el sistema clásico de módulos.
+  - **app.routes.ts**: Definición de rutas para el enfoque standalone.
+  - **app.config.ts**: Configuración de la aplicación para el arranque standalone.
+  - **formulario-normal/**: Componente para formulario template-driven.
+  - **formulario-reactivo/**: Componente para formulario reactivo.
+
+---
+
+## Routing (Enrutamiento)
+
+El routing permite navegar entre los dos formularios:
+
+- **Definición de rutas**  
+  En `app.routes.ts` y `app-routing.module.ts` se definen dos rutas:
+  - `''` (ruta raíz): muestra el componente `FormularioNormalComponent`.
+  - `'reactivo'`: muestra el componente `FormularioReactivoComponent`.
+
+- **Configuración**  
+  - En modo standalone, las rutas se proveen en `app.config.ts` usando `provideRouter(routes)`.
+  - En modo clásico, se usa el módulo `AppRoutingModule`.
+
+- **Navegación**  
+  En `app.component.html` se usan los enlaces:
+  ```html
+  <a routerLink="/" ...>Formulario Normal</a>
+  <a routerLink="reactivo" ...>Formulario Reactivo</a>
+  ```
+  El `<router-outlet>` muestra el componente correspondiente según la ruta.
+
+---
+
+## Formularios
+
+### 1. Template-driven Forms (Formulario Normal)
+
+- **Componente:** `formulario-normal.component.ts`
+- **HTML:** `formulario-normal.component.html`
+
+**Características:**
+- Usa `FormsModule`.
+- El formulario se declara en la plantilla con `ngForm`.
+- El campo `nombre` está vinculado con `[(ngModel)]`.
+- Al enviar, si el campo no está vacío, se agrega el nombre a la lista.
+
+**Ejemplo:**
+```html
+<form (ngSubmit)="enviar()" #form="ngForm">
+  <input name="nombre" [(ngModel)]="nombre" required>
+  <button type="submit" [disabled]="form.invalid">Enviar</button>
+</form>
+```
+
+---
+
+### 2. Reactive Forms (Formulario Reactivo)
+
+- **Componente:** `formulario-reactivo.component.ts`
+- **HTML:** `formulario-reactivo.component.html`
+
+**Características:**
+- Usa `ReactiveFormsModule`.
+- El formulario se crea en el TypeScript con `FormBuilder`.
+- El campo `correo` tiene validaciones de requerido y formato de email.
+- Al enviar, si es válido, se agrega el correo a la lista y se resetea el formulario.
+
+**Ejemplo:**
+```html
+<form [formGroup]="form" (ngSubmit)="enviar()">
+  <input formControlName="correo" type="email">
+  <!-- Mensajes de error -->
+</form>
+```
+
+---
+
+## Resumen
+
+- **Routing:** Permite navegar entre los dos formularios usando rutas y `<router-outlet>`.
+- **Formulario Template-driven:** Usa `ngModel` y se define en la plantilla.
+- **Formulario Reactivo:** Usa `FormGroup` y validaciones en TypeScript.
+
+¿Te gustaría que te explique alguna parte con más detalle o ver el flujo de datos en algún formulario?
