@@ -1,0 +1,22 @@
+<form (ngSubmit)="enviar()" #form="ngForm">
+  <label>
+    Nombre:
+    <input name="nombre" [(ngModel)]="nombre" required>
+  </label>
+  <button type="submit" [disabled]="form.invalid">Enviar</button>
+</form>
+
+<table *ngIf="nombres.length > 0" border="1" style="margin-top:1rem;">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Nombre</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let n of nombres; let i = index">
+      <td>{{ i + 1 }}</td>
+      <td>{{ n }}</td>
+    </tr>
+  </tbody>
+</table>

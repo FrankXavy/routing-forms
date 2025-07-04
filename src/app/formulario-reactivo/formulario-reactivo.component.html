@@ -1,0 +1,26 @@
+<form [formGroup]="form" (ngSubmit)="enviar()">
+  <label>
+    Correo:
+    <input formControlName="correo" type="email">
+  </label>
+  <div *ngIf="form.get('correo')?.invalid && form.get('correo')?.touched">
+    <small *ngIf="form.get('correo')?.errors?.['required']">El correo es requerido.</small>
+    <small *ngIf="form.get('correo')?.errors?.['email']">Correo inválido.</small>
+  </div>
+  <button type="submit" [disabled]="form.invalid">Enviar</button>
+</form>
+
+<table *ngIf="correos.length > 0" border="1" style="margin-top:1rem;">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Correo</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let c of correos; let i = index">
+      <td>{{ i + 1 }}</td>
+      <td>{{ c }}</td>
+    </tr>
+  </tbody>
+</table>
