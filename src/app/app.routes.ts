@@ -3,6 +3,15 @@ import { FormularioNormalComponent } from './formulario-normal/formulario-normal
 import { FormularioReactivoComponent } from './formulario-reactivo/formulario-reactivo.component';
 
 export const routes: Routes = [
-  { path: '', component: FormularioNormalComponent },
-  { path: 'reactivo', component: FormularioReactivoComponent }
+  { 
+    path: '', 
+    component: FormularioNormalComponent
+  },
+  { 
+    path: 'reactivo', 
+    loadComponent() {
+      return import('./formulario-reactivo/formulario-reactivo.component')
+        .then(m => m.FormularioReactivoComponent);
+    }, 
+  }
 ];
